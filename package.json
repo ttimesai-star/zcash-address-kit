@@ -1,0 +1,53 @@
+{
+  "name": "zcash-address-kit",
+  "version": "0.1.0",
+  "description": "Parse and validate every Zcash address type (Unified u1/zu/tu with F4Jumble, Sapling, TEX, transparent) in pure TypeScript. No keys, no WASM, no network.",
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test \"dist/test/**/*.test.js\"",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "zcash",
+    "zec",
+    "unified-address",
+    "zip-316",
+    "zip-320",
+    "f4jumble",
+    "sapling",
+    "orchard",
+    "address-validation",
+    "bech32m"
+  ],
+  "author": "Artur Baranovsky (ttimesai-star)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttimesai-star/zcash-address-kit.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@noble/hashes": "2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

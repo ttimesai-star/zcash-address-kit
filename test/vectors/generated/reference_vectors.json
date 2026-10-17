@@ -1,0 +1,450 @@
+{
+ "_about": "Extra vectors generated with the reference Python code of zcash/zcash-test-vectors. Encoders, DiversifyHash and point decoding come from that code; expected error codes follow ZIP 316 / ZIP 320 and librustzcash.",
+ "generator": "scripts/gen_reference_vectors.py",
+ "zcash_test_vectors_commit": "78321beacb0e0477e33cd002b56585a107c2708c",
+ "valid": [
+  {
+   "address": "zs17xwek7t788enw3zc88d5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p2jumnna",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[0] default address"
+  },
+  {
+   "address": "zs14mccpahrfc65hzy0sxntz04rxmwm0fnmkzdqu68f608m8ysssv028g5khgy6jgsxplfckyxhys5",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[1] default address"
+  },
+  {
+   "address": "zs1wkvlp0um2lxjms5ekenpg9ee299j3uzaa79p3mhwtmk563xxyfwrcewc3hveqacgqyh45a46tq8",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[2] default address"
+  },
+  {
+   "address": "zs1rwqkznca4h4qlrg2tqj7k40ueampl3jwskjc3mlxattcxta37rm6svt939dal72zjf04csxqxxj",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[3] default address"
+  },
+  {
+   "address": "zs1lnak3fqdf0r2qjcfcj9j5vmlqd3zcf8l8qw5c4r0d9mljpfzayhau3xf6xasn9c5h8djk9jqcyy",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[4] default address"
+  },
+  {
+   "address": "zs1adge3q4drewvv4xdt94j0kkvkk5zql6n95gv5gu0j7rxfzs3kktxu5dz7lvfu9wjnw8a79lwjlt",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[5] default address"
+  },
+  {
+   "address": "zs1h6asldrt32hl3yzq7mg3mgqlpdpmm4fg35ersku8w8fzxjfudxqz23qy8amu78t3c89ccqhe7kv",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[6] default address"
+  },
+  {
+   "address": "zs144hzuxz6xyqw8f4gkvevk2qxhzp0zd5tp49gnrmjcny0w2qn9nqjg455del5ev8mqkx6jsnvfp7",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[7] default address"
+  },
+  {
+   "address": "zs1y8ysu8r93vl0ap40tz0xg96tf2uczszuxga4uyj8t9z6gm20ahuqvzpgqswdyrnzl5kw73h3ntm",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[8] default address"
+  },
+  {
+   "address": "zs1yv7y4wyx540rhgm5czmga8hqcpnc67esx6f3eqc6y5j47lhysuu95vp3dc2lvjptsa8a5z23yhy",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "sapling_key_components[9] default address"
+  },
+  {
+   "address": "ztestsapling17xwek7t788enw3zc88d5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p26tfs5f",
+   "type": "sapling",
+   "network": "testnet",
+   "note": "testnet HRP"
+  },
+  {
+   "address": "zregtestsapling17xwek7t788enw3zc88d5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p290qa9w",
+   "type": "sapling",
+   "network": "regtest",
+   "note": "regtest HRP"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc884rks2jrjgx3q3m56wj2j63z5ntwvlh5gv6zktr3uctgeqjaj8sq5veg0c",
+   "type": "sapling",
+   "network": "mainnet",
+   "note": "valid diversifier with pk_d = [6] * default_pk_d (prime-order subgroup point)"
+  },
+  {
+   "address": "textest10wur2u9clts5dcpu2vc6qg93uzyj7ccangyg53",
+   "type": "tex",
+   "network": "testnet",
+   "note": "ZIP 320 testnet HRP"
+  },
+  {
+   "address": "texregtest10wur2u9clts5dcpu2vc6qg93uzyj7ccae75km9",
+   "type": "tex",
+   "network": "regtest",
+   "note": "regtest HRP"
+  },
+  {
+   "address": "tmLzX7pEUwk7xWbQC1Ksxo7YWHHej8cniP3",
+   "type": "p2pkh",
+   "network": "testnet",
+   "note": "testnet P2PKH (tm)"
+  },
+  {
+   "address": "t3VqniXEX6yvqTWuBThEpN5EgpprdEbA4m1",
+   "type": "p2sh",
+   "network": "mainnet",
+   "note": "mainnet P2SH (t3)"
+  },
+  {
+   "address": "t2HpymCLeySYD1DUvPSEruhRKwK5o7G1PT7",
+   "type": "p2sh",
+   "network": "testnet",
+   "note": "testnet P2SH (t2)"
+  },
+  {
+   "address": "utest1nqaarlf8ehmtateefnysz3a6mxvtl39cgvtmj68ngj9266vtk7efr936qp67cz4aywuy4cqss3pfu870hxmkruhmrzgetw2jq7dle6lvzrgsrckh2ugw4fehsyd7j66sy67x84hylx5rjg47qnkzztwf9zvce9v6je7ngd6j8mjh44knm2kj7u6c67nv20dk6hkhsfugd5t7jqlkjfm",
+   "type": "unified",
+   "network": "testnet",
+   "note": "official items re-encoded with utest",
+   "receivers": [
+    "p2pkh",
+    "sapling",
+    "orchard"
+   ]
+  },
+  {
+   "address": "uregtest13pv356h59604ak8t7qqzwgyuujg9c48y0e5634346d3a5dlrzn8spxlq6l6gzphv526m5ctm4zeunn67z3hmf7z064s99ll6ey23jpffst5wj4ehpagsfndsdf9xytjq3fr5as7yllvvmtqgy298qdffkpr7zhvz0lp7zl9cmf4kvyldlqspvae9553nnrpaec3gumef6jrwcyttj37",
+   "type": "unified",
+   "network": "regtest",
+   "note": "official items re-encoded with uregtest",
+   "receivers": [
+    "p2pkh",
+    "sapling",
+    "orchard"
+   ]
+  },
+  {
+   "address": "u1h2amef4qugy40zykg2t6s46d0ukd8rw2mnk832x2pgfyz8rp3zej87ck7ttn2jsd6ssk5l58hymxp24zl9mjqgyzqvsjzhmtrl4yfcwvyqsker8zfegru90u4ke",
+   "type": "unified",
+   "network": "mainnet",
+   "note": "unknown data typecode 0x04 is ignored",
+   "receivers": [
+    "orchard",
+    "unknown"
+   ]
+  },
+  {
+   "address": "u13l6yyh8j26r04umpjha5x9js3eap67nxcrtplergv4nkm2tfyykd4ejup0p786lrp3h39djvtg4d8sg50ct96d30a79p8cvz5v7462tp3g35lc",
+   "type": "unified",
+   "network": "mainnet",
+   "note": "non-MUST-understand metadata 0xC0 is ignored",
+   "receivers": [
+    "orchard"
+   ]
+  },
+  {
+   "address": "u1q2y3hzpp9jhq8s6ha5s95v4tmlzglrkjckn75zf44eqa4ut6evsf5gvfeappprm5naqlq4nx6mrvq600fhal9p4gu7ymlzefke9a0mqtan6q2g82pc7qsfx3ww",
+   "type": "unified",
+   "network": "mainnet",
+   "note": "P2PKH + unknown typecode: accepted, as librustzcash counts unknown items as non-transparent",
+   "receivers": [
+    "p2pkh",
+    "unknown"
+   ]
+  },
+  {
+   "address": "zu16sd6pqnamvvlsnskmu27a007h5sce382kpc45z3hvd2fjt7lzsmkrpdfm2n0g5myl8cvuh2wh3xpz9w72ttcaw3xa6j8j3n543nfs93u2y73d4jfzfckgt",
+   "type": "unified",
+   "network": "mainnet",
+   "note": "zu with only an experimental receiver is well-formed (librustzcash)",
+   "receivers": [
+    "unknown"
+   ]
+  },
+  {
+   "address": "tu1h4k2ksg40pf6ps9qclgnyeeu2z37c3v62rrfy4e8d26axhds8dk7xnq5zv92lf24pxzum5ss7yqq4",
+   "type": "unified",
+   "network": "mainnet",
+   "note": "transparent-only tu address with Address Expiry Height",
+   "receivers": [
+    "p2pkh"
+   ]
+  },
+  {
+   "address": "zutest1rgx7nhr55th2rcrc3807r7mw6r6u3huq3p5e094xdqy6rnlycw4sjuryljvc48zhvzrh80n8y0q7uhlewsw9jtfnr2494ucghyx93w86",
+   "type": "unified",
+   "network": "testnet",
+   "note": "zu testnet HRP",
+   "receivers": [
+    "orchard"
+   ]
+  },
+  {
+   "address": "turegtest1lhw6df88snp5fes4ahsyep8a7szl7ssvdjq7hufvyxvtj8y5u5lhy7c5vctk6k37qr8mhyws9k69f5k8tmvulss735n5dv7nn57dwrt5qtum0atygu2x5nm0prdkdjn6zthnsm6acs7",
+   "type": "unified",
+   "network": "regtest",
+   "note": "tu regtest HRP",
+   "receivers": [
+    "p2sh",
+    "orchard"
+   ]
+  }
+ ],
+ "invalid": [
+  {
+   "address": "zs1r93yh78026mfnvnychd5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p2k4nsj4",
+   "code": "INVALID_SAPLING_DIVERSIFIER",
+   "note": "reference diversify_hash(d) is None"
+  },
+  {
+   "address": "zs1hfyy6f76qjm6ahaz8td5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p2alfr3s",
+   "code": "INVALID_SAPLING_DIVERSIFIER",
+   "note": "reference diversify_hash(d) is None"
+  },
+  {
+   "address": "zs1m5awngv3fka2gy7z7td5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p2j7hstc",
+   "code": "INVALID_SAPLING_DIVERSIFIER",
+   "note": "reference diversify_hash(d) is None"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc89p5ktwsf8vypxf0j89xl8fflckln429hpeau6zgsjqqh8v3ehjp6mxe38h",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d not on Jubjub (reference from_bytes is None)"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc8xltgjtpesazcacag4c7fslca4dluryp3gxju3g3rpqg26d98zmzgg0687e",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d not on Jubjub (reference from_bytes is None)"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc884nks2jrwgx3q36q2wz2nh46fumczue4sshnyuk67k4rrn9jd7hgg5ktn9",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d with non-canonical v + q"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc8yqsqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqyv5qqf",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d is the identity"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc8yqqqqqqlllllll7t0l07q4yh4fstk9ppyydswfnfp7e622n5lkhxguxqef",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d is the point of order 2"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc8yntxt202sass9rjhtxqa8fulyx4eqjsuv6ptxs7vkjjvsg3l9uduacrjpr",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d = valid point + order-2 point: on the curve but outside the prime-order subgroup"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc8xzqpx5w6r8yltr9ekvwknq85l752356k53mqv2fy3m98hhuphns57zw5lf",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "pk_d = valid point + order-4 point"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc88d5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p28qtlkl",
+   "code": "WRONG_VARIANT",
+   "note": "Sapling address encoded with Bech32m"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc88d5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6qwjtk0k",
+   "code": "BAD_LENGTH",
+   "note": "Sapling payload of 42 bytes"
+  },
+  {
+   "address": "zs17xwek7t788enw3zc88d5e54s4tz006uv5yclzet8c3z6j423ymfu98c5u0thd6zp4e6p2qq829dxz",
+   "code": "BAD_LENGTH",
+   "note": "Sapling payload of 44 bytes"
+  },
+  {
+   "address": "tex10wur2u9clts5dcpu2vc6qg93uzyj7ccal6tj5g",
+   "code": "WRONG_VARIANT",
+   "note": "TEX encoded with Bech32 instead of Bech32m"
+  },
+  {
+   "address": "tex10wur2u9clts5dcpu2vc6qg93uzyj7ccaqq85ghms",
+   "code": "BAD_LENGTH",
+   "note": "TEX payload of 21 bytes"
+  },
+  {
+   "address": "CZHM7XMZR9B7DmiHFoafLhRtpxaSBLseGp",
+   "code": "BAD_LENGTH",
+   "note": "P2PKH payload of 19 bytes"
+  },
+  {
+   "address": "t1tVNn63NGG5LBnLqN1uYRa9YJoprQcxigB",
+   "code": "UNKNOWN_FORMAT",
+   "note": "unknown Base58 prefix 0x1cb9"
+  },
+  {
+   "address": "u1p4q5klmwntnewda2gyylsffc40sakc2ksh9cl9py7dz5wrcp9js9njqymxtwtjqqj3y0dvmreg0g04229nv7qpmvp80r7tyq35qrp23m9tny2g4qqr22vt8f5ufmlcp2tszljdxhfxtqchmhm22rjjthg680lz5z9qugqxgv8qwz9xng",
+   "code": "BAD_TYPECODE_ORDER",
+   "note": "receivers in priority order instead of typecode order"
+  },
+  {
+   "address": "u14wkj4dd3q67keuwu8wumk4ryms2k2cjvtru7wkcc8fvemutv96hnrdulucrkft8978dtawaqhxm3tqhtlln28a66dn0upc9qagtzp94kv9tvnheyxmdxrzqd5567ekv9l3f66slar98xwe0y7xq6q92ma6n2whdfhg9mw9wp5skzc5vw8a85e4plxhp9u4jftmmtxqw5u54zwvh8e68",
+   "code": "BAD_TYPECODE_ORDER",
+   "note": "P2PKH after Sapling"
+  },
+  {
+   "address": "u1s066yagjuvr5yer5xavx5jw2rqm8zwlv8y4447wqh3ygym5wdxv5s6mmh6qzlukllkskhfnn65mmkhwyu5h9tekvdmhc75859g9fp5zv22zalewnuuaw6aa33qq4keyn8plfqjghxdjehl97hl8rr2qx6uc8dkjcns0u4v948qlcvesdwdrmzw6stf29sanggzjn4l20z2nuufllka2",
+   "code": "DUPLICATE_TYPECODE",
+   "note": "Orchard receiver twice"
+  },
+  {
+   "address": "u1h7q8m3yaxuj562a6sw3uam92lmvx0fca3dqlmnd76xacxak9c7wky3nue53m8tfel4er483nhn6nnegfyhq64et7eek045lxpla4uzmkrx08rwqdewd85hnl3a08ql9hy4y8n73ggraeqhgpfpll3l7nnglre647e2af70hylkn60s",
+   "code": "BOTH_P2PKH_AND_P2SH",
+   "note": "P2PKH and P2SH together"
+  },
+  {
+   "address": "u1hjw88a4ekkp5733fvt4hae9csn087eyt8fquvxc7qr8y8dr6h99qm6heg9zp248y68a",
+   "code": "ONLY_TRANSPARENT",
+   "note": "Revision 0 UA with only a P2PKH receiver"
+  },
+  {
+   "address": "u1jqsuvnqwscvrggnjnksmc6duw6kxe8m2rsll2ekvduyjqdzt8l9xz6t34hn6ek9qnvayg0pc",
+   "code": "ONLY_TRANSPARENT",
+   "note": "only P2PKH plus ignorable metadata"
+  },
+  {
+   "address": "tu1dqk5zefraa9xq4ezk6c0y5nrsqtmjv2p7pvghte3aj95sqq9858f5ymwz589lqaezkenjwc8phm4f",
+   "code": "NO_DATA_ITEMS",
+   "note": "metadata only"
+  },
+  {
+   "address": "zu1k4kg5gef4x0kmj6da0csc25ul9sy828acxe97rm3chum7ky5dfhw7xeg5ly5l4pelm8cw00yc7ju782pypeslfmzh0wznw3wt3ama94f0tul34mamn29qlfchqqr90jfn3yn5lgd7sk",
+   "code": "TRANSPARENT_IN_ZU",
+   "note": "zu address with a P2PKH receiver"
+  },
+  {
+   "address": "zu1t2u6zjmw3vwutdys37sd5qugk7pzka6k4yaj5cukjg49t8rg3ar68qf0y7whjrqwqwhw6nl4v44dg3e5t8hnncnnt647cr0dlyz6qxj33ha2a868af39uu8f5mvzsrsnxjddyk739ku",
+   "code": "TRANSPARENT_IN_ZU",
+   "note": "zu address with a P2SH receiver"
+  },
+  {
+   "address": "u1kepdq2necce4kx6nex27junx0pxln735zcmp6jz9ah7pdjr787wsadmr5tqvx5kpl554syyuf8aksjqjru0hlfkry93cl649y48w4g9ysjjs93jl5s",
+   "code": "METADATA_NOT_IN_REVISION",
+   "note": "Revision 0 UA with expiry metadata"
+  },
+  {
+   "address": "zu1t9q07n693hevvm0t9cmzjf53gxyjszqe654275m0f705gparg3ncup3mtvhapvwxqt3w2ffr07uhhqelwgym4hrtwf09at5tzfvznts0szg5c",
+   "code": "MUST_UNDERSTAND_METADATA",
+   "note": "unassigned MUST-understand 0xE2"
+  },
+  {
+   "address": "zu1f7dw8req7j62t5mzgtw0tnnuvsh6h239q6g6wk8uvlqfz365u2dngh3jq6payv887nh8m5hny8djzzx52k7ugaenyelcr9uwsflc5gmr0hg",
+   "code": "MUST_UNDERSTAND_METADATA",
+   "note": "unassigned MUST-understand 0xFC"
+  },
+  {
+   "address": "zu19csgsgscdcm9n9henfk6nkeu7v9vtqlnn74s2e0w607l736r2p6nxwxgw5mj6cwrstskpwxfd0zgyvlc8v4q20marlnmz475jxvsm6yuthwj7wjsfgv",
+   "code": "BAD_METADATA_LENGTH",
+   "note": "expiry height of 5 bytes"
+  },
+  {
+   "address": "zu1nscv6dpd9nzqhe33vwmvwc0y43x45yte4v54n7ynfc0p9d6uxdt2z3wyczvmpnssj5kgswljt5r7us6sqj3lyjlv924aq2z3ml0qmj3wa3fs2w7epx",
+   "code": "BAD_METADATA_LENGTH",
+   "note": "expiry time of 4 bytes"
+  },
+  {
+   "address": "u1xe6su9sn4t5xaxar3jkhzhhtjt2kjcwqueydp5ctnvhu5wq7swxhc0v4aycg797240jmqku2s00p9pmaak750e5ukdz4aytfwpgrwy",
+   "code": "BAD_RECEIVER_LENGTH",
+   "note": "Orchard receiver of 42 bytes"
+  },
+  {
+   "address": "u182a5nznxe0vstjwhsx9t8tyadhefduas9dttal6xsj9qs38hyzk2h4m0nvp9j7yuwk7qsayupnnhtwepcnx3khf827r4h6cr5zvfgefdcnjaeuld45098ejshcjnq59r7dh2kdqzufcjx",
+   "code": "BAD_RECEIVER_LENGTH",
+   "note": "P2PKH receiver of 21 bytes"
+  },
+  {
+   "address": "u1run2nwvmws3y3dv0xvxepwj47nged29m8wtcmkrq4znfphk92uuvy62t04ym9fqpsg25gh09u039dzme6vac99g7d4x4earmeu5snqz53h",
+   "code": "BAD_RECEIVER_LENGTH",
+   "note": "Sapling receiver of 44 bytes"
+  },
+  {
+   "address": "u1nqaarlf8ehmtateefnysz3a6mxvtl39cgvtmj68ngj9266vtk7efr936qp67cz4aywuy4cqss3pfu870hxmkruhmrzgetw2jq7dle6lvzrgsrckh2ugw4fehsyd7j66sy67x84hylx5rjg47qnkzztwf9zvce9v6je7ngd6j8mjh44knm2kj7u6c67nv20dk6hkhsfugd5t7j66tz9f",
+   "code": "BAD_PADDING",
+   "note": "mainnet HRP with testnet padding"
+  },
+  {
+   "address": "utest1pg2aaph7jp8rpf6yhsza25722sg5fcn3vaca6ze27hqjw7jvvhhuxkpcg0ge9xh6drsgdkda8qjq5chpehkcpxf87rnjryjqwymdheptpvnljqqrjqzjwkc2ma6hcq666kgwfytxwac8eyex6ndgr6ezte66706e3vaqrd25dzvzkc69kw0jgywtd0cmq52q5lkw6uh7hyvzj2u6xu5",
+   "code": "BAD_PADDING",
+   "note": "testnet HRP with mainnet padding"
+  },
+  {
+   "address": "u1q0nwk74nkfpfu20y4s6v40t8xfpp6qca3mpv95da6mlcyy692wh8ssr2qf3t9tyw7ar2uguagtgkr4k23zhmy47q6wh3zggnpxt5efu5u28p9h5dcvl0jufamv2mmjvlpwgq339cdt62zfx595nqu2tadvrdlaspkf3z22xvhr4s2hpw9qw7levxd7vagucuyatdj8j3v5cycggvznskl",
+   "code": "TRUNCATED",
+   "note": "trailing byte after the last item"
+  },
+  {
+   "address": "u18m6rvavjspwpg5es7da83z9tjqf4gg9u4pc5s0rg4rfucu4g87dwfh0kvpgqn8rd409e6k2zlaqdytu6xmpw3lnn92y7js832v0",
+   "code": "TRUNCATED",
+   "note": "item shorter than its length field"
+  },
+  {
+   "address": "u1c0qym4msx4gqe9w9s95nem9v6te6r5jv4nv2a7rt8de9nj3ezec9s40r858etj0vlcqwhznz0rdy8ysn9kfdhjleeenz4vf095j6qr7eyrg",
+   "code": "BAD_COMPACT_SIZE",
+   "note": "non-canonical compactSize typecode"
+  },
+  {
+   "address": "u1slz6pzhz0ta7054zlmfsetpshn2ahq9uu98k8de9nknwepvhrzzed0mwmwup5fquhxuxcns3g48duw4l37yv2r0n9d92jwc8wa0rs8h4wm3",
+   "code": "BAD_COMPACT_SIZE",
+   "note": "non-canonical compactSize length"
+  },
+  {
+   "address": "u1gctzcka2u8g459dtm4tqv7r8qdrhtp9ceu3zkucvls0q0jgal203pw9fgux7avmntqeha2ejs4873tn28pn3mz2edfch2wymdsveenlqtf2q6zeq58",
+   "code": "BAD_COMPACT_SIZE",
+   "note": "typecode above 0x2000000"
+  },
+  {
+   "address": "u1pg2aaph7jp8rpf6yhsza25722sg5fcn3vaca6ze27hqjw7jvvhhuxkpcg0ge9xh6drsgdkda8qjq5chpehkcpxf87rnjryjqwymdheptpvnljqqrjqzjwkc2ma6hcq666kgwfytxwac8eyex6ndgr6ezte66706e3vaqrd25dzvzkc69kw0jgywtd0cmq52q5lkw6uh7hyvzj99h64y",
+   "code": "WRONG_VARIANT",
+   "note": "UA encoded with Bech32 instead of Bech32m"
+  },
+  {
+   "address": "u1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqh66jke",
+   "code": "BAD_LENGTH",
+   "note": "payload of 20 bytes, below the F4Jumble minimum of 38"
+  },
+  {
+   "address": "u19s5jcncelmu3dsrcyx5mwdswhzqfjmwudm4s636y3xe4tm4t7zfqxlrqy38adx0m6eh6ztzjj4qgl5dsrcpxymu7cv7zj454hzs9qx2tg58lu6u69enzmnl5exp278ykgrxplu7832vlngnnpn3fnqaewff53k7a80lpzwm6vc8e37ad",
+   "code": "INVALID_SAPLING_DIVERSIFIER",
+   "note": "UA whose Sapling receiver has an invalid diversifier"
+  },
+  {
+   "address": "u1dhzyaztckcnrhsv5qkar7fum5wrf4hhwf9grdwge9l76f3rszf3j4ktl0e377uww6hcyedzsm6jgv8jqwdf677azaxngrfhd9545emuj",
+   "code": "INVALID_SAPLING_PK_D",
+   "note": "UA whose Sapling pk_d is outside the subgroup"
+  },
+  {
+   "address": "u1xsqqmlz9xfnsh87w5llzewuerm4scsefpe6g79pds73rqvr0vcc0fx6r9wagrnju9nkzqcdqq9q09xysjersu7zsptaml0dyts453pel",
+   "code": "INVALID_ORCHARD_PK_D",
+   "note": "Orchard pk_d not on Pallas (reference from_bytes is None)"
+  },
+  {
+   "address": "u1fcqxutuse98uqjlzc75mr0e7tllfulf2yu3la8ahr8kcr8za5z7k3tfzfm406r82mm7vtxd2re9c97eyer3gfl3ja20h93tv2crn4u4w",
+   "code": "INVALID_ORCHARD_PK_D",
+   "note": "Orchard pk_d not on Pallas (reference from_bytes is None)"
+  },
+  {
+   "address": "u19f5ttekvg38p7l2cltnkjygnn27pesnuwcgmzlkrvt50w5wt56zdm9tycgk79zfttng869lt5e2kuzn7p9x0fhx35ggy4vmt3vpljqhe",
+   "code": "INVALID_ORCHARD_PK_D",
+   "note": "Orchard pk_d is the identity"
+  },
+  {
+   "address": "u1mz7j5a7hn6fjv2fu4gqt0eu40xv0x9fzhtsctav49lzfmlhy7p0yg70g6can0kp6mt7p8yty3n4zegl0m45kn0etz73088d5rqj8g4nv",
+   "code": "INVALID_ORCHARD_PK_D",
+   "note": "Orchard pk_d with non-canonical x = p + 1"
+  }
+ ]
+}
