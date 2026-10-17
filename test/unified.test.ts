@@ -177,3 +177,41 @@ test('librustzcash negative cases (jumbled bytes under the mainnet HRP) are reje
     assert.throws(() => parseZcashAddress(ua), ZcashAddressError, name);
   }
 });
+
+// Pinned after the Jules review of 17.10.2026, which proposed rejecting both cases below.
+// librustzcash (components/zcash_address/src/kind/unified.rs, try_from_items_internal) treats
+// unknown data typecodes as non-transparent, so a Revision 0 UA whose only non-transparent item has
+// an unknown typecode is well-formed; and "a `tu` address has no additional constraints", i.e. it
+// need not contain a transparent receiver. ZIP 316 (Requirements ...) agrees for `tu`; for unknown
+// typecodes it requires Consumers to ignore them. Integrators who need a known shielded receiver
+// use `requireShieldedReceiver`.
+test('reference parity: R0 UA with an unknown-typecode receiver is accepted, tu needs no transparent receiver', () => {
+  const unknownOnly = encodeUnifiedRaw('u', [{ typecode: 0x05, data: new Uint8Array(32) }]);
+  const p2pkhAndUnknown = encodeUnifiedRaw('u', [
+    { typecode: 0x00, data: new Uint8Array(20) },
+    { typecode: 0x05, data: new Uint8Array(32) },
+  ]);
+  for (const ua of [unknownOnly, p2pkhAndUnknown]) {
+    const p = parseZcashAddress(ua);
+    assert.equal(p.revision, 0);
+    assert.equal(p.shielded, false);
+    assert.equal(validateZcashAddress(ua).valid, true);
+    const r = validateZcashAddress(ua, { requireShieldedReceiver: true });
+    assert.equal(r.valid, false);
+    assert.equal(r.valid ? undefined : r.code, 'NO_SHIELDED_RECEIVER');
+  }
+  // Only P2PKH (no unknown item) stays rejected in Revision 0.
+  assert.throws(
+    () => parseZcashAddress(encodeUnifiedRaw('u', [{ typecode: 0x00, data: new Uint8Array(20) }])),
+    (e: ZcashAddressError) => e.code === 'ONLY_TRANSPARENT',
+  );
+
+  const tuShieldedOnly = R2.filter(
+    (row) =>
+      (row['unified_addr'] as string).startsWith('tu') &&
+      typeof row['p2pkh_bytes'] !== 'string' &&
+      typeof row['p2sh_bytes'] !== 'string',
+  );
+  assert.ok(tuShieldedOnly.length > 0, 'official R2 vectors contain tu addresses without a transparent receiver');
+  for (const row of tuShieldedOnly) assert.equal(parseZcashAddress(row['unified_addr'] as string).revision, 2);
+});
