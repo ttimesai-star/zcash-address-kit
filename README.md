@@ -81,7 +81,8 @@ p.network;     // 'mainnet'
 p.revision;    // 0 for u1…, 2 for zu1…/tu1…
 p.receivers;   // [{ typecode: 0, kind: 'p2pkh', data }, { typecode: 2, kind: 'sapling', data }, …]
 p.shielded;    // true if there is a Sapling or Orchard receiver
-p.expiryHeight; p.expiryTime; // Revision 2 metadata, if present
+p.expiryHeight; p.expiryTime; // Revision 2 metadata, if present (expiryTime is a bigint: u64 seconds)
+// receivers[].data is a Uint8Array and expiryTime a bigint: JSON.stringify(p) needs a replacer for both
 ```
 
 ### API
