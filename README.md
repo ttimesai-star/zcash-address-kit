@@ -37,6 +37,25 @@ The missing piece is a small, standalone parser that implements ZIP 316 complete
 Unknown receiver typecodes (0x04..0xBF, 0xFD.., experimental 0xFFFA..0xFFFF) and ignorable metadata
 (0xC0..0xDF) are kept in the result and otherwise ignored, as ZIP 316 requires of a Consumer.
 
+### Reference behaviour: one known divergence from the ZIP 316 text
+
+This library follows **librustzcash** (`zcash_address`) where the two disagree. There is one such case:
+
+- ZIP 316 says: "A Revision 0 Unified Address MUST contain at least one shielded Item (currently Typecodes
+  0x02 and 0x03). Consumers MUST reject addresses that violate this restriction." The same ZIP also says
+  Consumers "MUST ignore constituent Items with Typecodes they do not recognise".
+- librustzcash resolves this by counting any non-P2PKH/P2SH receiver as non-transparent
+  (`DataTypecode::is_transparent` in `components/zcash_address/src/kind/unified.rs`), so a Revision 0 UA made
+  of `{P2PKH, unknown 0x05}` or of `{unknown 0x05}` alone is **accepted**.
+- **Default here: accepted, as in librustzcash** (pinned by the test "reference parity" in
+  `test/unified.test.ts`). With `requireShieldedReceiver: true` such an address is rejected with
+  `NO_SHIELDED_RECEIVER`, which is the stricter reading of the ZIP text. Services that will actually send to a
+  shielded receiver should set this option.
+
+This is a divergence from the letter of the ZIP, not a claim that the ZIP requires it. The question of which
+reading is intended will be raised with the ZIP editors; if the answer is "reject", the default will change in
+a major version.
+
 **NU6.3 (Ironwood).** Ironwood does not introduce a new receiver type or typecode. ZIP 229 states: "The
 addition of the *Ironwood pool* does not change address structures or encodings"; Orchard receivers (0x03)
 are reused and new payments to them land in the Ironwood pool. The ZIP 316 typecode registry still lists
@@ -115,8 +134,8 @@ Error codes are listed in [`src/errors.ts`](src/errors.ts).
   6.7 million characters; real ones are a few hundred. The cap avoids spending seconds on hostile input.
 - **Upper-case Bech32 input is accepted** (as BIP 173 allows) and `address` in the result is lower-cased.
 - **A Revision 0 UA with a transparent receiver plus an unknown-typecode receiver is accepted**, as in
-  librustzcash, which counts unknown receivers as non-transparent. Use `requireShieldedReceiver` if you need a
-  known shielded receiver.
+  librustzcash, which counts unknown receivers as non-transparent. The ZIP 316 text is stricter here; see
+  "Reference behaviour" above. Use `requireShieldedReceiver` if you need a known shielded receiver.
 - **Curve checks.** Sapling and Orchard receivers are checked the way `sapling-crypto` and `orchard` do when
   they decode a raw address. Generic validators usually skip this; an address with an invalid diversifier
   would otherwise pass validation and fail only when the wallet tries to build the transaction. BigInt field
@@ -144,17 +163,27 @@ Error codes are listed in [`src/errors.ts`](src/errors.ts).
 
 - [`zcash_address`](https://github.com/zcash/librustzcash/tree/main/components/zcash_address) (Rust) — the
   reference parser; this library follows its rules. Its Python counterpart lives in zcash-test-vectors.
-- JavaScript code that parses Unified Addresses exists inside larger SDKs: Ledger Live's `coin-zcash`
-  module (Revision 0, recipient classification) and the NEAR Intents SDK (`validateZcashUnifiedAddress`,
-  Revision 0 mainnet). They are not standalone packages, do not cover Revision 2, TEX or regtest, and do not
-  check receiver points.
+- JavaScript code that parses Unified Addresses exists inside larger SDKs (checked 30 Oct 2026):
+  - Ledger Live `coin-zcash` module,
+    [`src/logic/address.ts`](https://github.com/LedgerHQ/ledger-live/blob/4fe7e66b42f2a6386fdd5444eef62193d4547c80/libs/coin-modules/coin-zcash/src/logic/address.ts)
+    (module added in commit `66fc12d`, 22 Jul 2026): HRPs `u` / `utest` only (Revision 0), no receiver
+    point checks; its `validateAddress` accepts transparent addresses and UAs with an Orchard or transparent
+    receiver, and rejects Sapling-only addresses by design.
+  - NEAR Intents SDK (`@defuse-protocol/intents-sdk`),
+    [`validateZcashUnifiedAddress`](https://github.com/defuse-protocol/sdk-monorepo/blob/f7702ac2feb56ced2e2bfa8723e85ad98564561c/packages/intents-sdk/src/lib/zcash-unified-address.ts)
+    (added 1 Sep 2026): mainnet `u` only, no receiver point checks, Sapling-only UAs rejected by design; its
+    address check also accepts `t1`/`t3` and `tex`.
+
+  Both are written for what their own product can send to, and neither is published as a standalone package.
+  If a maintained standalone JavaScript parser exists that I missed, I would rather contribute there.
 - `@ensdomains/address-encoder` handles transparent and Sapling Zcash addresses (not Unified or TEX);
   `multicoin-address-validator` handles transparent only.
 
 ## Contributing
 
-Issues and pull requests are welcome. Please add a test vector for every behaviour change; prefer vectors
-generated by the reference implementation (`scripts/gen_reference_vectors.py`).
+Issues and pull requests are welcome; see [`CONTRIBUTING.md`](CONTRIBUTING.md). Please add a test vector for
+every behaviour change; prefer vectors generated by the reference implementation
+(`scripts/gen_reference_vectors.py`).
 
 Most of this code was written with an AI coding assistant (Claude). Correctness is established by the
 official test vectors and the reference-generated vectors above, not by trust in the assistant; review is
