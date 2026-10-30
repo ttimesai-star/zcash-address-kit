@@ -4,8 +4,9 @@ Parse and validate every Zcash address type in plain TypeScript: Unified Address
 Revision 2 `zu1…` / `tu1…` forms) with F4Jumble, Sapling (`zs1…`), TEX (`tex1…`, ZIP 320) and transparent
 (`t1…`, `t3…`) addresses, on mainnet, testnet and regtest.
 
-No keys, no proving, no WASM, no network access. One runtime dependency: [`@noble/hashes`](https://github.com/paulmillr/noble-hashes)
-(BLAKE2b, BLAKE2s, SHA-256).
+No keys, no proving, no WASM, no network access, no runtime dependencies. The published ES module and CommonJS
+builds bundle BLAKE2b, BLAKE2s and SHA-256 from the audited [`@noble/hashes`](https://github.com/paulmillr/noble-hashes)
+2.4.0. Size: **11.4 kB minified + gzipped** (29.4 kB minified), as printed by `npm run build`.
 
 > **Status: prototype (v0.1.0), not audited, not yet published to npm.** It passes all official Zcash test
 > vectors listed below, but nobody outside this repository has used it in production yet. Please open an
@@ -36,6 +37,9 @@ The missing piece is a small, standalone parser that implements ZIP 316 complete
 
 Unknown receiver typecodes (0x04..0xBF, 0xFD.., experimental 0xFFFA..0xFFFF) and ignorable metadata
 (0xC0..0xDF) are kept in the result and otherwise ignored, as ZIP 316 requires of a Consumer.
+
+Revision 2 (`zu` / `tu`) is still a Draft in ZIP 316; if its text changes, the behaviour here follows in a new
+major version.
 
 ### Reference behaviour: one known divergence from the ZIP 316 text
 
@@ -71,7 +75,17 @@ Not on npm yet. From GitHub:
 npm install github:ttimesai-star/zcash-address-kit
 ```
 
-Node.js 22 or later (ES modules).
+Both module formats are published:
+
+```js
+import { isValidZcashAddress } from 'zcash-address-kit';            // ESM: dist/esm/index.js
+const { isValidZcashAddress } = require('zcash-address-kit');        // CommonJS: dist/cjs/index.cjs
+```
+
+The API is synchronous; there is nothing to initialise. CI runs the full test suite on Node.js 18, 20, 22 and
+24, and runs the official vectors against both builds on the end-of-life Node.js 12, 14 and 16 as well (the
+bundles are compiled to ES2020 with BigInt; `Object.hasOwn`, used by `@noble/hashes`, is replaced at build time).
+The CommonJS build also goes through browserify 17 unchanged (checked by hand, not in CI).
 
 ## Usage
 
@@ -143,7 +157,9 @@ Error codes are listed in [`src/errors.ts`](src/errors.ts).
 
 ## Tests
 
-`npm test` builds and runs the suite (Node's built-in test runner). CI runs it on Node 22 and 24.
+`npm test` builds and runs the suite (41 tests, Node's built-in test runner), then `test/builds.cjs`, which runs the
+official and reference-generated vectors against the published CommonJS and ESM bundles. CI: Node 18, 20, 22
+and 24 (everything) and Node 12, 14 and 16 (`test/builds.cjs`).
 
 - **Official vectors** from [zcash/zcash-test-vectors](https://github.com/zcash/zcash-test-vectors)
   (see [`test/vectors/README.md`](test/vectors/README.md)): 60 Revision 0 and 60 Revision 2 Unified
@@ -156,8 +172,40 @@ Error codes are listed in [`src/errors.ts`](src/errors.ts).
   variant, bad metadata, …), each with the expected error code.
 - **librustzcash** negative cases (bad padding, truncation, transparent-only).
 - **BIP 173 / BIP 350** Bech32 and Bech32m vectors.
-- **Mutation**: one character substituted at every position of 40 official UAs (>5 000 strings), adjacent swaps,
-  truncation, and receivers re-encoded in non-ascending order must all be rejected.
+- **Mutated inputs**: one character substituted at every position of 40 official UAs (>5 000 strings), adjacent
+  swaps, truncation, and receivers re-encoded in non-ascending order must all be rejected.
+- **Mutated code**: `node scripts/mutate.mjs` disables every validation check in `src/` one at a time (each
+  `fail('CODE', …)` becomes a no-op) and runs the suite. Result on 30 Oct 2026: 53 of 54 mutants
+  killed. The survivor (`src/unified.ts`, first `TRUNCATED` in `readCompactSize`) is equivalent: without it the
+  next line rejects the same input with the same code. Five other survivors of the first run led to
+  `test/defensive.test.ts`.
+
+## Why plain JavaScript, not WebAssembly or a node
+
+The reference parser is Rust (`zcash_address`), and there are two ways to use it from JavaScript today: a
+WebAssembly build, or a full node's address-validation RPC. Both are the right tool in some places. This
+library exists for the places where they are not:
+
+- **Size.** `@elemental-zcash/zaddr_wasm_parser` 0.2.0 ships a 1 295 079-byte `.wasm` file (435 721 bytes
+  gzipped, measured from the npm tarball). This library is 11.4 kB minified + gzipped, for the
+  address-format part only.
+- **Loading.** That package is ESM-only and imports the `.wasm` file as a module (wasm-pack `bundler` target), so it
+  needs a bundler with WebAssembly support and cannot be `require()`d by CommonJS validator libraries such as
+  `multicoin-address-validator` (Node >= 12, browserify). React Native's default engine (Hermes) has no
+  WebAssembly.
+- **Content Security Policy.** Compiling WebAssembly in a browser page needs `'wasm-unsafe-eval'` (or
+  `'unsafe-eval'`) in `script-src`. A withdrawal page with a strict policy would have to loosen it; plain
+  JavaScript needs no policy change.
+- **Synchronous API.** Validator libraries expose `validate(address)` returning a boolean. This library is a
+  plain synchronous function with no initialisation step.
+- **Auditability.** About 1 100 lines of TypeScript, no build-time code generation, rules mapped to ZIP 316 /
+  ZIP 320 and to tests (see "Tests"). A reviewer can read it in one sitting.
+- **A node** (`z_validateaddress`) is the right answer for a service that already runs one. It does not help a
+  browser form, a mobile app or a library that has no node.
+
+What it costs: this is a second implementation of the address rules, so it can drift from librustzcash. That
+is why every official vector is a test, why the one known difference from the ZIP text is documented below, and
+why new Zcash address rules require a release here.
 
 ## Prior art
 
@@ -174,8 +222,16 @@ Error codes are listed in [`src/errors.ts`](src/errors.ts).
     (added 1 Sep 2026): mainnet `u` only, no receiver point checks, Sapling-only UAs rejected by design; its
     address check also accepts `t1`/`t3` and `tex`.
 
-  Both are written for what their own product can send to, and neither is published as a standalone package.
-  If a maintained standalone JavaScript parser exists that I missed, I would rather contribute there.
+  Both are written for what their own product can send to. Neither can be used as a small dependency of a
+  validator library: Ledger's module is published as `@ledgerhq/coin-zcash` (on npm since July 2026, 1.0.0 on 22 Oct 2026),
+  a full coin module with 15 dependencies; the NEAR code is an internal function of an SDK. The NEAR code also
+  sets the F4Jumble minimum to 48 bytes (as does the Python reference code), while ZIP 316 and librustzcash
+  `main` use 38.
+- [`@elemental-zcash/zaddr_wasm_parser`](https://www.npmjs.com/package/@elemental-zcash/zaddr_wasm_parser)
+  0.2.0 (April 2025): a WebAssembly wrapper of `zcash_address`. Not updated since April 2025; the repository
+  linked from its package.json returns 404, so I could not check which ZIP 316 revision it builds from. See
+  "Why plain JavaScript" above for when it does and does not fit.
+- A full node's `z_validateaddress` RPC.
 - `@ensdomains/address-encoder` handles transparent and Sapling Zcash addresses (not Unified or TEX);
   `multicoin-address-validator` handles transparent only.
 
@@ -185,9 +241,10 @@ Issues and pull requests are welcome; see [`CONTRIBUTING.md`](CONTRIBUTING.md). 
 every behaviour change; prefer vectors generated by the reference implementation
 (`scripts/gen_reference_vectors.py`).
 
-Most of this code was written with an AI coding assistant (Claude). Correctness is established by the
-official test vectors and the reference-generated vectors above, not by trust in the assistant; review is
-very welcome.
+Most of this code was written with an AI coding assistant (Claude) under the maintainer's direction.
+Correctness is established by checks anyone can rerun, not by trust in the assistant: the official test
+vectors, the reference-generated vectors, and the code-mutation run above, which shows that each validation
+check is exercised by at least one test. Review is very welcome.
 
 ## License
 
