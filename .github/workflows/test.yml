@@ -10,13 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [22, 24]
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      # Build once with a current Node (TypeScript 7 and esbuild), then run everything on the matrix version.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --version && node scripts/test.mjs
+      - run: npm audit --omit=dev
+  legacy-node:
+    # The CommonJS and ESM bundles against the official vectors on end-of-life Node versions
+    # that the target validator libraries still declare (multicoin-address-validator: Node >= 12).
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [12, 14, 16]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm test
-      - run: npm audit --omit=dev
+      - run: npm run build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --version && node test/builds.cjs
