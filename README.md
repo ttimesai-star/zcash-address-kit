@@ -156,7 +156,7 @@ Error codes are listed in [`src/errors.ts`](src/errors.ts).
   variant, bad metadata, …), each with the expected error code.
 - **librustzcash** negative cases (bad padding, truncation, transparent-only).
 - **BIP 173 / BIP 350** Bech32 and Bech32m vectors.
-- **Mutation**: every single-character substitution of 40 official UAs (>5 000 strings), adjacent swaps,
+- **Mutation**: one character substituted at every position of 40 official UAs (>5 000 strings), adjacent swaps,
   truncation, and receivers re-encoded in non-ascending order must all be rejected.
 
 ## Prior art
